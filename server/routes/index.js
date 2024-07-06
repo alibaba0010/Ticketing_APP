@@ -1,5 +1,5 @@
 import express from "express";
-import userRouter from "./userRoute";
+import userRouter from "./userRouter";
 
 const ticketRouter = Router();
 

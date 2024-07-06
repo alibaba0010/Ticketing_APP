@@ -15,7 +15,7 @@ import {
   logOutUser,
   forgotPassword,
   resetPassword,
-} from "../controller/user.controller";
+} from "../controllers/user.controller";
 
 import {
   authenticateUser,
