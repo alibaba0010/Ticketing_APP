@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-const ticketRouter = Router();
+const userRouter = Router();
 
 
 import {
@@ -42,4 +42,4 @@ userRouter
   .patch("/forgotpassword", forgotPassword)
   .patch("/resetpassword/:resetToken", resetPassword)
 
-  export default userRouter
+  export default userRouter;
