@@ -11,11 +11,11 @@ import {
    getTickets,
  } from "../controllers/tickets.controller.js";
  
- const ticketRouter = Router();
+ const eventRouter = Router();
  
- ticketRouter
+ eventRouter
    .post("/", authentication, validateTicket, validateRequest, createTicket)
    .get("/", getTickets)
    .get("/:id", getTicketWithId)
    .patch("/:id", authentication, validateTicket, updateTicket);
- export default ticketRouter;
+ export default eventRouter;
