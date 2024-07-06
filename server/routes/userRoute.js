@@ -15,13 +15,13 @@ import {
   logOutUser,
   forgotPassword,
   resetPassword,
-} from "../controller/user.controller.js";
+} from "../controller/user.controller";
 
 import {
   authenticateUser,
   verifyAdmin,
   verifyUser,
-} from "../middleware/auth.js";
+} from "../utils/auth";
 
 userRouter
   // @desc Register User
