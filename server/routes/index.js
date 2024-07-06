@@ -1,5 +1,8 @@
-import { Router } from "express";
+import express from "express";
+import userRouter from "./userRoute";
 
-const ticketRouter = Router();
+const ticketRouter = express();
 
-export default ticketRouter
+ticketRouter.use("/", userRouter);
+
+export default ticketRouter;
