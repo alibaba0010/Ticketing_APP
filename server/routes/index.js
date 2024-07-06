@@ -1,8 +1,6 @@
 import express from "express";
 import userRouter from "./userRoute";
 
-const ticketRouter = express();
+const ticketRouter = Router();
 
-ticketRouter.use("/", userRouter);
-
-export default ticketRouter;
+export default ticketRouter
