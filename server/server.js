@@ -6,7 +6,7 @@ const app = express();
 
 app.use(json());
 
-await ticketRouter(app);
+ticketRouter(app);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
