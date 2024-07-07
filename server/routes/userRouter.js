@@ -2,10 +2,6 @@ import { Router } from "express";
 
 const userRouter = Router();
 
-
-// import {
-//   httpAddNewUser,
-//   httpAddNewAdmin,
 //   httpLogin,
 //   updateUser,
 //   getAllUserByAdmin,
@@ -28,7 +24,7 @@ userRouter
   // @route POST /api/v1/users/register
   // @access Public
   .post("/users/register", UsersController.httpAddNewUser)
-  .post("/admin/register", httpAddNewAdmin)
+  .post("/admin/register", UsersController.httpAddNewAdmin)
   .post("/users/login", httpLogin)
   //update user already  logged in with his token verification
   .patch("/users/user", authenticateUser, verifyUser, updateUser)

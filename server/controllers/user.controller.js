@@ -32,6 +32,20 @@ class UsersController {
       .status(StatusCodes.CREATED)
       .json({ username: user.username, email: user.email, id: user._id });
   }
+  static async httpAddNewUser(request, response) {
+    const admin = req.body;
+    admin.isAdmin = true;
+    const { username, email, password, confirmPassword, isAdmin } = admin;
+
+    comparePassword(password, confirmPassword);
+
+    requiredFields(username, email, password, confirmPassword);
+    await checkIfExists(email, username);
+    const user = await User.create({ username, email, password, isAdmin });
+    res
+      .status(StatusCodes.CREATED)
+      .json({ username: user.username, email: user.email, id: user._id });
+  }
 }
 
 export default UsersController;
