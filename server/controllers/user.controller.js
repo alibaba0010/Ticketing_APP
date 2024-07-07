@@ -33,3 +33,5 @@ class UsersController {
       .json({ username: user.username, email: user.email, id: user._id });
   }
 }
+
+export default UsersController;
