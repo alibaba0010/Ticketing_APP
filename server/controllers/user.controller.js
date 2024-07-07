@@ -32,7 +32,7 @@ class UsersController {
       .status(StatusCodes.CREATED)
       .json({ username: user.username, email: user.email, id: user._id });
   }
-  static async httpAddNewUser(request, response) {
+  static async httpAddNewAdmin(request, response) {
     const admin = req.body;
     admin.isAdmin = true;
     const { username, email, password, confirmPassword, isAdmin } = admin;
