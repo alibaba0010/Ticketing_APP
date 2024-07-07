@@ -1,10 +1,10 @@
 import { StatusCodes } from "http-status-codes";
-import { getPagination } from "../services/query.js";
+import { getPagination } from "../utils/query.js";
 import User from "../model/user/user.mongo.js";
 import BadRequestError from "../errors/badRequest.js";
 import notFoundError from "../errors/notFound.js";
 import UnAuthenticatedError from "../errors/unaunthenticated.js";
-import { sendEmail } from "../services/Email.js";
+import { sendEmail } from "../utils/Email.js";
 import {
   checkAdmin,
   checkIfExists,
