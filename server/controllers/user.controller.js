@@ -12,7 +12,7 @@ import {
   findUser,
   requiredFields,
   checkValue,
-} from "../model/user/user.model.js";
+} from "../models/users/userModel";
 
 import dotenv from "dotenv";
 import UnAuthorizedError from "../errors/unauthorized.js";

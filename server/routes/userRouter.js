@@ -3,20 +3,20 @@ import { Router } from "express";
 const userRouter = Router();
 
 
-import {
-  httpAddNewUser,
-  httpAddNewAdmin,
-  httpLogin,
-  updateUser,
-  getAllUserByAdmin,
-  getUserByAdmin,
-  showCurrentUser,
-  updateUserPassword,
-  logOutUser,
-  forgotPassword,
-  resetPassword,
-} from "../controllers/user.controller";
-
+// import {
+//   httpAddNewUser,
+//   httpAddNewAdmin,
+//   httpLogin,
+//   updateUser,
+//   getAllUserByAdmin,
+//   getUserByAdmin,
+//   showCurrentUser,
+//   updateUserPassword,
+//   logOutUser,
+//   forgotPassword,
+//   resetPassword,
+// } from "../controllers/user.controller";
+import UsersController from "../controllers/user.controller";
 import {
   authenticateUser,
   verifyAdmin,
@@ -27,7 +27,7 @@ userRouter
   // @desc Register User
   // @route POST /api/v1/users/register
   // @access Public
-  .post("/users/register", httpAddNewUser)
+  .post("/users/register", UsersController.httpAddNewUser)
   .post("/admin/register", httpAddNewAdmin)
   .post("/users/login", httpLogin)
   //update user already  logged in with his token verification

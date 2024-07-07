@@ -1,6 +1,8 @@
-import express from "express";
+import {Router} from "express";
 import userRouter from "./userRouter";
-import eventRouter from "./eventRouter";
+import eventRouter from "./eventsRouter";
 const ticketRouter = Router();
-ticketRouter.use("/user", userRouter).use("/event", eventRouter);
+ticketRouter
+.use("/user", userRouter)
+.use("/event", eventRouter);
 export default ticketRouter;
