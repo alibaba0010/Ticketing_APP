@@ -62,6 +62,44 @@ class UsersController {
     };
     res.status(StatusCodes.OK).json({ id: user.id, username: user.username });
   }
+
+  // UPDATE USER
+  static async updateUser(req, res) {
+    const { username } = req.body;
+    const { userId } = req.user;
+
+    if (!username) throw new BadRequestError("Username field cannot be empty");
+
+    const user = await User.findById(userId);
+    if (!user) throw new notFoundError("User not Found");
+
+    user.username = username;
+
+    const updatedUser = await user.save();
+
+    const { email, id } = updatedUser;
+
+    res
+      .status(StatusCodes.OK)
+      .json({ username: updatedUser.username, email, id });
+  }
+
+  // GET ALL USERS
+  static async getAllUserByAdmin(req, res) {
+    const { userId } = req.user;
+
+    await checkAdmin(userId);
+
+    const { skip, limit } = getPagination(req.query);
+    const users = await User.find({}, { __v: 0, password: 0 })
+      .sort("createdAt")
+      .skip(skip)
+      .limit(limit);
+
+    if (!users) throw new notFoundError("Unable to get Users");
+
+    return res.status(StatusCodes.OK).json({ users, nbHits: users.length });
+  }
 }
 
 export default UsersController;

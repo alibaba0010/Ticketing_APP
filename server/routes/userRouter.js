@@ -25,14 +25,12 @@ userRouter
   // @access Public
   .post("/users/register", UsersController.httpAddNewUser)
   .post("/admin/register", UsersController.httpAddNewAdmin)
-  .post("/users/login", httpLogin)
+  .post("/users/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
-  .patch("/users/user", authenticateUser, verifyUser, updateUser)
-  .patch("/user/password", authenticateUser, verifyUser, updateUserPassword)
-  .get("/users", authenticateUser, verifyAdmin, getAllUserByAdmin)
-  //verify if user is admin before getting the user by the id params
-  .get("/user/:id", authenticateUser, verifyAdmin, getUserByAdmin)
-  .get("/user", authenticateUser, verifyUser, showCurrentUser)
+  .patch("/users/user", authenticateUser, verifyUser, UsersController.updateUser)
+  //get users who has bokked the tickets
+  .get("/users", authenticateUser, verifyAdmin, UsersController.getAllUserByAdmin)
+  .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
   .get("/users/logout", authenticateUser, verifyUser, logOutUser)
   .patch("/forgotpassword", forgotPassword)
