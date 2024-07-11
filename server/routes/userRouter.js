@@ -28,12 +28,12 @@ userRouter
   .post("/users/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
   .patch("/users/user", authenticateUser, verifyUser, UsersController.updateUser)
-  //get users who has bokked the tickets
+  //get users who has booked the tickets
   .get("/users", authenticateUser, verifyAdmin, UsersController.getAllUserByAdmin)
   .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
-  .get("/users/logout", authenticateUser, verifyUser, logOutUser)
-  .patch("/forgotpassword", forgotPassword)
-  .patch("/resetpassword/:resetToken", resetPassword)
+  // .get("/users/logout", authenticateUser, verifyUser, logOutUser)
+  // .patch("/forgotpassword", forgotPassword)
+  // .patch("/resetpassword/:resetToken", resetPassword)
 
   export default userRouter;
