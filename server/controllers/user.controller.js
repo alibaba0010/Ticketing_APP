@@ -100,6 +100,27 @@ class UsersController {
 
     return res.status(StatusCodes.OK).json({ users, nbHits: users.length });
   }
+
+  // SHOW CURRENT USER
+static showCurrentUser = async (req, res) => {
+  const { userId } = req.user;
+  const user = await User.findById(userId);
+  if (!user) throw new notFoundError("Unable to get User");
+
+  const { username, id, email, isAdmin } = user;
+
+  return res.status(StatusCodes.OK).json({ username, id, email, isAdmin });
+};
+
+// LOGOUT USER
+static logOutUser = async (req, res) => {
+  const { userId } = req.user;
+  await findUser(userId);
+
+  req.session = null;
+  return res.status(StatusCodes.OK).json({ msg: "Successfully logged out" });
+};
+
 }
 
 export default UsersController;

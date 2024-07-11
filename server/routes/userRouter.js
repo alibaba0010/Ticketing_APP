@@ -32,8 +32,7 @@ userRouter
   .get("/users", authenticateUser, verifyAdmin, UsersController.getAllUserByAdmin)
   .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
-  // .get("/users/logout", authenticateUser, verifyUser, logOutUser)
-  // .patch("/forgotpassword", forgotPassword)
-  // .patch("/resetpassword/:resetToken", resetPassword)
+  .get("/users/logout", authenticateUser, verifyUser, UsersController.logOutUser)
+ 
 
   export default userRouter;
