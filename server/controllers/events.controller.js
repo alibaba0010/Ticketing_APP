@@ -11,7 +11,6 @@ import {
   checkValue,
 } from "../models/events/eventModel";
 
-import dotenv from "dotenv";
 import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 import { Event } from "../models/events/eventDB.js";
@@ -42,6 +41,10 @@ class EventsController {
       email: eventCreated.email,
       id: user._id,
     });
+  }
+
+  static async httpGetTickets(request, response) {
+    
   }
 }
 export default EventsController;

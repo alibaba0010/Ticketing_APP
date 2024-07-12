@@ -9,8 +9,8 @@ eventRouter.post(
   authenticateUser,
   verifyCreator,
   EventsController.httpAddNewEvent
-);
-// .get("/", getTickets)
+)
+.get("/:eventId/tickets", EventsController.httpGetTickets)
 // .get("/:id", getTicketWithId)
 // .patch("/:id", authentication, validateTicket, updateTicket);
 export default eventRouter;
