@@ -6,7 +6,7 @@ import notFoundError from "../errors/notFound";
 import UnAuthenticatedError from "../errors/unaunthenticated";
 import { sendEmail } from "../utils/Email";
 import {
-  checkAdmin,
+  checkCreator,
   checkIfExists,
   comparePassword,
   findUser,
@@ -19,7 +19,7 @@ import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 class EventsController {
   static async httpAddNewEvent(request, response) {
-   const {} = request.body;
+    const {} = request.body;
   }
 }
 

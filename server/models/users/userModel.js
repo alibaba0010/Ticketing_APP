@@ -20,7 +20,7 @@ export const checkIfExists = async (email, name) => {
     throw new BadRequestError("Email or name already exists");
 };
 
-export const checkAdmin = async (userId) => {
+export const checkCreator = async (userId) => {
   const user = await User.findById(userId);
 
   if (user.isCreator !== true)

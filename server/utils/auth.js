@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import UnauthenticatedError from "../errors/unaunthenticated.js";
 import UnAuthorizedError from "../errors/unauthorized.js";
-import { createClient } from "redis";
 
 import User from "../models/users/userDB";
 
@@ -18,9 +17,6 @@ export const authenticateUser = async (req, res, next) => {
   }
   try {
     const decode = jwt.verify(token, process.env.JWT_SEC);
-    // if (decode.exp < Date.now() / 1000) {
-    //   throw new UnauthenticatedError("Token has expired");
-    // }
     req.user = { userId: decode.userId, isCreator: decode.isCreator };
 
     next();
@@ -40,8 +36,8 @@ export async function verifyUser(req, res, next) {
   }
 }
 
-// VERIFY ADMIN
-export async function verifyAdmin(req, res, next) {
+// VERIFY CREATOR
+export async function verifyCreator(req, res, next) {
   const user = await User.findById(req.user.userId).select("-password");
   if (user || user.isCreator === true) {
     next();

@@ -6,7 +6,7 @@ import notFoundError from "../errors/notFound";
 import UnAuthenticatedError from "../errors/unaunthenticated";
 import { sendEmail } from "../utils/Email";
 import {
-  checkAdmin,
+  checkCreator,
   checkIfExists,
   comparePassword,
   findUser,
@@ -33,8 +33,8 @@ class UsersController {
       .status(StatusCodes.CREATED)
       .json({ name: user.name, email: user.email, id: user._id });
   }
-  // FOR ADMIN
-  static async httpAddNewAdmin(request, response) {
+  // FOR CREATOR
+  static async httpAddNewCreator(request, response) {
     const creator = request.body;
     creator.isCreator = true;
     const { name, email, password, confirmPassword, isCreator } = creator;
@@ -83,10 +83,10 @@ class UsersController {
   }
 
   // GET ALL USERS
-  static async getAllUserByAdmin(request, response) {
+  static async getAllUserByCreator(request, response) {
     const { userId } = request.user;
 
-    await checkAdmin(userId);
+    await checkCreator(userId);
 
     const { skip, limit } = getPagination(request.query);
     const users = await User.find({}, { __v: 0, password: 0 })

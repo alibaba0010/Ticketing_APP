@@ -4,8 +4,8 @@ const userRouter = Router();
 
 //   httpLogin,
 //   updateUser,
-//   getAllUserByAdmin,
-//   getUserByAdmin,
+//   getAllUserByCreator,
+//   getUserByCreator,
 //   showCurrentUser,
 //   updateUserPassword,
 //   logOutUser,
@@ -13,14 +13,14 @@ const userRouter = Router();
 //   resetPassword,
 // } from "../controllers/user.controller";
 import UsersController from "../controllers/user.controller";
-import { authenticateUser, verifyAdmin, verifyUser } from "../utils/auth";
+import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth";
 
 userRouter
   // @desc Register User
   // @route POST /api/v1/users/register
   // @access Public
   .post("/users/register", UsersController.httpAddNewUser)
-  .post("/creator/register", UsersController.httpAddNewAdmin)
+  .post("/creator/register", UsersController.httpAddNewCreator)
   .post("/users/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
   .patch(
@@ -33,8 +33,8 @@ userRouter
   .get(
     "/users",
     authenticateUser,
-    verifyAdmin,
-    UsersController.getAllUserByAdmin
+    verifyCreator,
+    UsersController.getAllUserByCreator
   )
   .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
