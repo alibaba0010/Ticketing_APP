@@ -12,15 +12,15 @@ import {
   findUser,
   requiredFields,
   checkValue,
-} from "../models/users/userModel";
+} from "../models/events/eventModel";
 
 import dotenv from "dotenv";
 import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 class EventsController {
   static async httpAddNewEvent(request, response) {
-    const {name, description, date, quantity, price } = request.body;
-    
+    const { name, description, date, quantity, price } = request.body;
+    requiredFields(name, name, date, quantity, price);
   }
 }
 

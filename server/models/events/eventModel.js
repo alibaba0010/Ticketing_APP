@@ -5,6 +5,6 @@ import Event from "./eventDB";
 import Ticket from "./ticketDB";
 
 export const requiredFields = (name, email, password, confirmPassword) => {
-  if (!name || !email || !password || !confirmPassword)
+  if (!name || !name || !date || !quantity || !price)
     throw new BadRequestError("Please fill all required field");
 };

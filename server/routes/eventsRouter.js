@@ -1,17 +1,17 @@
 // import { authentication, validateRequest, validateTicket } from "../utils/auth";
 import { Router } from "express";
-// import {
-//   createEvent,
-//   createTicket,
-//   getTicketWithId,  
-//   getTickets,
-// } from "../controllers/tickets.controller.js";
+import EventsController from "../controllers/events.controller";
+import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth";
 
 const eventRouter = Router();
 
-eventRouter
-  // .post("/", authentication, validateTicket, validateRequest, createTicket)
-  // .get("/", getTickets)
-  // .get("/:id", getTicketWithId)
-  // .patch("/:id", authentication, validateTicket, updateTicket);
+eventRouter.post(
+  "/:eventId/:ticketId",
+  authenticateUser,
+  verifyCreator,
+  EventsController.httpAddNewEvent
+);
+// .get("/", getTickets)
+// .get("/:id", getTicketWithId)
+// .patch("/:id", authentication, validateTicket, updateTicket);
 export default eventRouter;

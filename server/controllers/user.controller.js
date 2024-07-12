@@ -13,8 +13,6 @@ import {
   requiredFields,
   checkValue,
 } from "../models/users/userModel";
-
-import dotenv from "dotenv";
 import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 class UsersController {

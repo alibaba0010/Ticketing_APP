@@ -2,16 +2,6 @@ import { Router } from "express";
 
 const userRouter = Router();
 
-//   httpLogin,
-//   updateUser,
-//   getAllUserByCreator,
-//   getUserByCreator,
-//   showCurrentUser,
-//   updateUserPassword,
-//   logOutUser,
-//   forgotPassword,
-//   resetPassword,
-// } from "../controllers/user.controller";
 import UsersController from "../controllers/user.controller";
 import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth";
 
