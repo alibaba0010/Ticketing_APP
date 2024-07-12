@@ -6,7 +6,6 @@ import { sendEmail } from "../utils/Email";
 import {
   checkCreator,
   checkIfExists,
-  comparePassword,
   findUser,
   requiredFields,
   checkValue,

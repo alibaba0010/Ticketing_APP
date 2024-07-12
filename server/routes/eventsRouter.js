@@ -1,4 +1,3 @@
-// import { authentication, validateRequest, validateTicket } from "../utils/auth";
 import { Router } from "express";
 import EventsController from "../controllers/events.controller";
 import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth";
