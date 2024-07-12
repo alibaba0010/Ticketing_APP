@@ -7,17 +7,17 @@ export const comparePassword = (password, confirmPassword) => {
   if (password !== confirmPassword)
     throw new BadRequestError("Password doesn't match");
 };
-export const requiredFields = (username, email, password, confirmPassword) => {
-  if (!username || !email || !password || !confirmPassword)
+export const requiredFields = (name, email, password, confirmPassword) => {
+  if (!name || !email || !password || !confirmPassword)
     throw new BadRequestError("Please fill all required field");
 };
 
-export const checkIfExists = async (email, username) => {
+export const checkIfExists = async (email, name) => {
   const checkEmailExist = await User.findOne({ email });
-  const checkUsernameExist = await User.findOne({ username });
+  const checkUsernameExist = await User.findOne({ name });
 
   if (checkEmailExist || checkUsernameExist)
-    throw new BadRequestError("Email or username already exists");
+    throw new BadRequestError("Email or name already exists");
 };
 
 export const checkAdmin = async (userId) => {
@@ -38,7 +38,7 @@ export const checkValue = async (value) => {
   if (emailRegex.test(value)) {
     result = await User.findOne({ email: value });
   } else {
-    result = await User.findOne({ username: value });
+    result = await User.findOne({ name: value });
   }
   if (!result) throw new BadRequestError("Unable to find user");
   return result;

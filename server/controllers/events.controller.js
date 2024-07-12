@@ -18,7 +18,9 @@ import dotenv from "dotenv";
 import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 class EventsController {
-  static async httpAddNewEvent(request, response) {}
+  static async httpAddNewEvent(request, response) {
+   const {} = request.body;
+  }
 }
 
 export default EventsController;
