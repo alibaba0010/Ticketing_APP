@@ -3,6 +3,6 @@ import userRouter from "./userRouter";
 import eventRouter from "./eventsRouter";
 const ticketRouter = Router();
 ticketRouter
-.use("/user", userRouter)
-.use("/event", eventRouter);
+.use("/users", userRouter)
+.use("/events", eventRouter);
 export default ticketRouter;

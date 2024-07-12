@@ -19,12 +19,10 @@ const EventSchema = new Schema(
     },
     image: {
       type: String,
-      required: true,
     },
     userId: {
       type: Types.ObjectId,
       required: true,
-      ref: "User",
     },
     date: {
       type: Date,
