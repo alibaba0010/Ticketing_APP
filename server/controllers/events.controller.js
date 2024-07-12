@@ -19,7 +19,8 @@ import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 class EventsController {
   static async httpAddNewEvent(request, response) {
-    const {} = request.body;
+    const {name, description, date, quantity, price } = request.body;
+    
   }
 }
 

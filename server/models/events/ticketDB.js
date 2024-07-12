@@ -3,17 +3,27 @@ const { Schema, model } = pkg;
 import dotenv from "dotenv";
 dotenv.config();
 
-
-const TicketSchema = new Schema({
-    id: {
-        type: String,
-        required: true,
+const TicketSchema = new Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    eventId: {
+      type: Types.ObjectId,
+      required: true,
+      ref: "Event",
+    },
+    ticketId: {
+      type: String,
+      required: true,
     },
     price: {
-        type: [Number],
-        index: "2dsphere",
+      type: [Number],
+      index: "2dsphere",
     },
-});
- TicketSchema.set("versionKey", "version");
+  },
+  { timestamps: true }
+);
 
 export default model("Ticket", TicketSchema);
