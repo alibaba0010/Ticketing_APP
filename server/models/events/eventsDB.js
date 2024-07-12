@@ -1,43 +1,43 @@
-import { Schema, model, Model, Document } from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import pkg, { Types } from "mongoose";
+const { Schema, model } = pkg;
+import dotenv from "dotenv";
+dotenv.config();
 
 
-
-
-const TicketSchema = new Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    userId: {
-      type: String,
-      required: true,
-    },
-    orderId: {
-      type: String,
-    },
+const EventSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
+  price: {
+    type: Number,
+    required: true,
+  },
+  userId: {
+    type: Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+  tickets: [
+    {
+      id: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: [Number],
+        index: "2dsphere",
       },
     },
-  }
-);
+  ],
+});
 
-TicketSchema.set('versionKey', 'version');
-TicketSchema.plugin(updateIfCurrentPlugin);
+// EventSchema.set("versionKey", "version");
+// EventSchema.plugin(updateIfCurrentPlugin);
 
-TicketSchema.statics.build = (attrs) => {
-  return new Ticket(attrs);
-};
+// EventSchema.statics.build = (attrs) => {
+//   return new Ticket(attrs);
+// };
 
-const Ticket = model("Ticket", TicketSchema);
-export { Ticket };
+const Event = model("Ticket", EventSchema);
+export { Event };
