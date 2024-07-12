@@ -51,9 +51,9 @@ class UsersController {
   // LOGIN
   static async httpLogin(request, response) {
     const { email, password } = request.body;
-    if (!value || !password)
+    if (!email || !password)
       throw new BadRequestError("Provide a name or email and password");
-    const user = await checkValue(value);
+    const user = await checkValue(email);
     const comparePassword = await user.comparePassword(password);
     if (!comparePassword) throw new UnAuthenticatedError("Invalid Password");
     const token = await user.createJWT();

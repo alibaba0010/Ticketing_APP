@@ -31,15 +31,3 @@ export const findUser = async (userId) => {
   const user = await User.findById(userId);
   if (!user) throw new notFoundError("Unable to get user");
 };
-export const checkValue = async (value) => {
-  // Regular expression to check if the value is an email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let result;
-  if (emailRegex.test(value)) {
-    result = await User.findOne({ email: value });
-  } else {
-    result = await User.findOne({ name: value });
-  }
-  if (!result) throw new BadRequestError("Unable to find user");
-  return result;
-};
