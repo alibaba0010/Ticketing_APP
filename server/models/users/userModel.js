@@ -23,8 +23,8 @@ export const checkIfExists = async (email, username) => {
 export const checkAdmin = async (userId) => {
   const user = await User.findById(userId);
 
-  if (user.isAdmin !== true)
-    throw new UnAuthorizedError("Only admin is ascessible");
+  if (user.isCreator !== true)
+    throw new UnAuthorizedError("Only creator is ascessible");
 };
 
 export const findUser = async (userId) => {

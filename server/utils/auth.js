@@ -21,7 +21,7 @@ export const authenticateUser = async (req, res, next) => {
     // if (decode.exp < Date.now() / 1000) {
     //   throw new UnauthenticatedError("Token has expired");
     // }
-    req.user = { userId: decode.userId, isAdmin: decode.isAdmin };
+    req.user = { userId: decode.userId, isCreator: decode.isCreator };
 
     next();
   } catch (err) {
@@ -43,9 +43,9 @@ export async function verifyUser(req, res, next) {
 // VERIFY ADMIN
 export async function verifyAdmin(req, res, next) {
   const user = await User.findById(req.user.userId).select("-password");
-  if (user || user.isAdmin === true) {
+  if (user || user.isCreator === true) {
     next();
   } else {
-    throw new UnAuthorizedError("Only admin is ascessible");
+    throw new UnAuthorizedError("Only creator is ascessible");
   }
 }

@@ -20,7 +20,7 @@ import NotFoundError from "../errors/notFound.js";
 class UsersController {
   // CREATE NEW USER
   static async httpAddNewUser(request, response) {
-    const { username, email, password, confirmPassword } = req.body;
+    const { username, email, password, confirmPassword } = request.body;
 
     comparePassword(password, confirmPassword);
 
@@ -29,44 +29,46 @@ class UsersController {
     await checkIfExists(email, username);
 
     const user = await User.create({ username, email, password });
-    res
+    response
       .status(StatusCodes.CREATED)
       .json({ username: user.username, email: user.email, id: user._id });
   }
   // FOR ADMIN
   static async httpAddNewAdmin(request, response) {
-    const admin = req.body;
-    admin.isAdmin = true;
-    const { username, email, password, confirmPassword, isAdmin } = admin;
+    const creator = request.body;
+    creator.isCreator = true;
+    const { username, email, password, confirmPassword, isCreator } = creator;
 
     comparePassword(password, confirmPassword);
 
     requiredFields(username, email, password, confirmPassword);
     await checkIfExists(email, username);
-    const user = await User.create({ username, email, password, isAdmin });
-    res
+    const user = await User.create({ username, email, password, isCreator });
+    response
       .status(StatusCodes.CREATED)
       .json({ username: user.username, email: user.email, id: user._id });
   }
   // LOGIN
   static async httpLogin(request, response) {
-    const { value, password } = req.body;
+    const { value, password } = request.body;
     if (!value || !password)
       throw new BadRequestError("Provide a username or email and password");
     const user = await checkValue(value);
     const comparePassword = await user.comparePassword(password);
     if (!comparePassword) throw new UnAuthenticatedError("Invalid Password");
     const token = await user.createJWT();
-    req.session = {
+    request.session = {
       jwt: token,
     };
-    res.status(StatusCodes.OK).json({ id: user.id, username: user.username });
+    response
+      .status(StatusCodes.OK)
+      .json({ id: user.id, username: user.username });
   }
 
   // UPDATE USER
-  static async updateUser(req, res) {
-    const { username } = req.body;
-    const { userId } = req.user;
+  static async updateUser(request, response) {
+    const { username } = request.body;
+    const { userId } = request.user;
 
     if (!username) throw new BadRequestError("Username field cannot be empty");
 
@@ -79,18 +81,18 @@ class UsersController {
 
     const { email, id } = updatedUser;
 
-    res
+    response
       .status(StatusCodes.OK)
       .json({ username: updatedUser.username, email, id });
   }
 
   // GET ALL USERS
-  static async getAllUserByAdmin(req, res) {
-    const { userId } = req.user;
+  static async getAllUserByAdmin(request, response) {
+    const { userId } = request.user;
 
     await checkAdmin(userId);
 
-    const { skip, limit } = getPagination(req.query);
+    const { skip, limit } = getPagination(request.query);
     const users = await User.find({}, { __v: 0, password: 0 })
       .sort("createdAt")
       .skip(skip)
@@ -98,29 +100,34 @@ class UsersController {
 
     if (!users) throw new notFoundError("Unable to get Users");
 
-    return res.status(StatusCodes.OK).json({ users, nbHits: users.length });
+    return response
+      .status(StatusCodes.OK)
+      .json({ users, nbHits: users.length });
   }
 
   // SHOW CURRENT USER
-static showCurrentUser = async (req, res) => {
-  const { userId } = req.user;
-  const user = await User.findById(userId);
-  if (!user) throw new notFoundError("Unable to get User");
+  static showCurrentUser = async (request, response) => {
+    const { userId } = request.user;
+    const user = await User.findById(userId);
+    if (!user) throw new notFoundError("Unable to get User");
 
-  const { username, id, email, isAdmin } = user;
+    const { username, id, email, isCreator } = user;
 
-  return res.status(StatusCodes.OK).json({ username, id, email, isAdmin });
-};
+    return response
+      .status(StatusCodes.OK)
+      .json({ username, id, email, isCreator });
+  };
 
-// LOGOUT USER
-static logOutUser = async (req, res) => {
-  const { userId } = req.user;
-  await findUser(userId);
+  // LOGOUT USER
+  static logOutUser = async (request, response) => {
+    const { userId } = request.user;
+    await findUser(userId);
 
-  req.session = null;
-  return res.status(StatusCodes.OK).json({ msg: "Successfully logged out" });
-};
-
+    request.session = null;
+    return response
+      .status(StatusCodes.OK)
+      .json({ msg: "Successfully logged out" });
+  };
 }
 
 export default UsersController;

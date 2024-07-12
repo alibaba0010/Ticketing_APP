@@ -32,7 +32,7 @@ const UserSchema = new Schema(
       required: [true, "Please provide password"],
       minlength: [6, "Password must be up to 6 characters"],
     },
-    isAdmin: {
+    isCreator: {
       type: Boolean,
       default: false,
     },
@@ -69,7 +69,7 @@ UserSchema.pre("save", async function (next) {
 
 UserSchema.methods.createJWT = async function () {
   const signInToken = jwt.sign(
-    { userId: this._id, isAdmin: this.isAdmin },
+    { userId: this._id, isCreator: this.isCreator },
     process.env.JWT_SEC,
     {
       expiresIn: exp,
