@@ -48,5 +48,5 @@ const EventSchema = new Schema(
   { timestamps: true }
 );
 
-const Event = model("Ticket", EventSchema);
+const Event = model("Event", EventSchema);
 export { Event };
