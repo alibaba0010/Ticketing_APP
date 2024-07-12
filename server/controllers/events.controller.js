@@ -35,11 +35,13 @@ class EventsController {
         },
       ],
     });
+
+    console.log(`Event created ${eventCreated}`);
+    response.status(StatusCodes.CREATED).json({
+      name: eventCreated.name,
+      email: eventCreated.email,
+      id: user._id,
+    });
   }
 }
-
-console.log(`Event created ${eventCreated}`);
-    response
-      .status(StatusCodes.CREATED)
-      .json({ name: eventCreated.name, email: user.email, id: user._id });
 export default EventsController;
