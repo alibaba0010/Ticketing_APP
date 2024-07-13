@@ -4,13 +4,19 @@ import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth";
 
 const eventRouter = Router();
 
-eventRouter.post(
-  "/:eventId/:ticketId",
-  authenticateUser,
-  verifyCreator,
-  EventsController.httpAddNewEvent
-)
-.get("/:eventId/tickets", EventsController.httpGetTickets)
+eventRouter
+  .post(
+    "/:eventId/:ticketId",
+    authenticateUser,
+    verifyCreator,
+    EventsController.httpAddNewEvent
+  )
+  .get(
+    "/:eventId/tickets",
+    authenticateUser,
+    verifyCreator,
+    EventsController.httpGetTickets
+  );
 // .get("/:id", getTicketWithId)
 // .patch("/:id", authentication, validateTicket, updateTicket);
 export default eventRouter;

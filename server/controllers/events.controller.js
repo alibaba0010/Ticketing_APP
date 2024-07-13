@@ -44,7 +44,7 @@ class EventsController {
   }
 
   static async httpGetTickets(request, response) {
-    
+    const { userId } = request.user;
   }
 }
 export default EventsController;
