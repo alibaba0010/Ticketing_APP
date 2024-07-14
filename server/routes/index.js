@@ -3,6 +3,6 @@ import userRouter from "./userRouter";
 import eventRouter from "./eventsRouter";
 const indexRouter = Router();
 indexRouter
-.use("/users", userRouter)
-.use("/events", eventRouter);
+.use("/api/users", userRouter)
+.use("/api/events", eventRouter);
 export default indexRouter;
