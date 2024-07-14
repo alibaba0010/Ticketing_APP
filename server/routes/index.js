@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import userRouter from "./userRouter";
 import eventRouter from "./eventsRouter";
 import { errorHandler } from "../errors/error.js";

@@ -9,8 +9,7 @@ userRouter
   // @desc Register User
   // @route POST /api/v1/users/register
   // @access Public
-  // .post("/register", UsersController.httpAddNewUser)
-  .get("/register", (req, res)=> console.log("hello world"))
+  .post("/register", UsersController.httpAddNewUser)
   .post("/creator/register", UsersController.httpAddNewCreator)
   .post("/users/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
