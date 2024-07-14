@@ -28,6 +28,7 @@
     "nodemailer": "^6.9.14",
     "redis": "^4.6.15",
     "sha1": "^1.1.1",
+    "ticketing_app": "link:",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
