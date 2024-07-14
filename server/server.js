@@ -1,14 +1,13 @@
-import express, { json } from "express";
+import { createServer } from "http";
 import indexRouter from "./routes/index";
-import  connecttoDB  from "./utils/db";
+import connecttoDB from "./utils/db";
 const PORT = process.env.PORT || 5000;
-const app = express();
 
-app.use(json());
+const server = createServer(indexRouter);
 
-indexRouter(app);
-const uri = process.env.MONGO_URL;
-app.listen(PORT, async () => {
+(async () => {
   await connecttoDB();
-  console.log(`Server running on port ${PORT}`);
-});
+  server.listen(PORT, () =>
+    console.log(`Listening to port @ http://localhost:${PORT}`)
+  );
+})();

@@ -1,8 +1,13 @@
-import {Router} from "express";
+import express from "express";
 import userRouter from "./userRouter";
 import eventRouter from "./eventsRouter";
-const indexRouter = Router();
+import { errorHandler } from "../errors/error.js";
+import { routeError } from "../errors/route.error.js";
+const indexRouter = express();
 indexRouter
-.use("/api/users", userRouter)
-.use("/api/events", eventRouter);
+  .use(json())
+  .use("/api/users", userRouter)
+  .use("/api/events", eventRouter)
+  .use(routeError)
+  .use(errorHandler);
 export default indexRouter;
