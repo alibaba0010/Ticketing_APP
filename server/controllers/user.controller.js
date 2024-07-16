@@ -1,18 +1,18 @@
 import { StatusCodes } from "http-status-codes";
-import { getPagination } from "../utils/query";
-import User from "../models/users/userDB";
-import BadRequestError from "../errors/badRequest";
-import notFoundError from "../errors/notFound";
-import UnAuthenticatedError from "../errors/unaunthenticated";
-import { sendEmail } from "../utils/Email";
+import { getPagination } from "../utils/query.js";
+import User from "../models/users/userDB.js";
+import BadRequestError from "../errors/badRequest.js";
+import notFoundError from "../errors/notFound.js";
+import UnAuthenticatedError from "../errors/unaunthenticated.js";
+import { sendEmail } from "../utils/Email.js";
 import {
   checkCreator,
   checkIfExists,
   comparePassword,
   findUser,
   requiredFields,
-  checkValue,
-} from "../models/users/userModel";
+  checkEmail
+} from "../models/users/userModel.js";
 import UnAuthorizedError from "../errors/unauthorized.js";
 import NotFoundError from "../errors/notFound.js";
 class UsersController {
@@ -51,7 +51,7 @@ class UsersController {
     const { email, password } = request.body;
     if (!email || !password)
       throw new BadRequestError("Provide a name or email and password");
-    const user = await checkValue(email);
+    const user = await checkEmail(email);
     const comparePassword = await user.comparePassword(password);
     if (!comparePassword) throw new UnAuthenticatedError("Invalid Password");
     const token = await user.createJWT();

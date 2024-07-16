@@ -1,12 +1,15 @@
 import { createServer } from "http";
-import indexRouter from "./routes/index";
-import connecttoDB from "./utils/db";
-const PORT = process.env.PORT || 5000;
-
-const server = createServer(indexRouter);
+import dotenv from "dotenv";
+import connectDB from "./db.js";
+import app from "./app.js";
+dotenv.config();
+// const PORT = process.env.PORT || 2000;
+const PORT = 2000;
+const uri = process.env.MONGO_URL;
+const server = createServer(app);
 
 (async () => {
-  await connecttoDB();
+  await connectDB(uri);
   server.listen(PORT, () =>
     console.log(`Listening to port @ http://localhost:${PORT}`)
   );

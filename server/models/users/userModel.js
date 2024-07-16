@@ -1,7 +1,7 @@
-import BadRequestError from "../../errors/badRequest";
-import UnAuthorizedError from "../../errors/unauthorized";
-import notFoundError from "../../errors/notFound";
-import User from "./userDB";
+import BadRequestError from "../../errors/badRequest.js";
+import UnAuthorizedError from "../../errors/unauthorized.js";
+import notFoundError from "../../errors/notFound.js";
+import User from "./userDB.js";
 
 export const comparePassword = (password, confirmPassword) => {
   if (password !== confirmPassword)
@@ -12,11 +12,10 @@ export const requiredFields = (name, email, password, confirmPassword) => {
     throw new BadRequestError("Please fill all required field");
 };
 
-export const checkIfExists = async (email, name) => {
+export const checkIfExists = async (email) => {
   const checkEmailExist = await User.findOne({ email });
-  const checkUsernameExist = await User.findOne({ name });
 
-  if (checkEmailExist || checkUsernameExist)
+  if (checkEmailExist)
     throw new BadRequestError("Email or name already exists");
 };
 
@@ -30,4 +29,10 @@ export const checkCreator = async (userId) => {
 export const findUser = async (userId) => {
   const user = await User.findById(userId);
   if (!user) throw new notFoundError("Unable to get user");
+};
+export const checkEmail = async (email) => {
+  const checkEmailExist = await User.findOne({ email });
+
+  if (!checkEmailExist)
+    throw new BadRequestError("Email or name already exists");
 };

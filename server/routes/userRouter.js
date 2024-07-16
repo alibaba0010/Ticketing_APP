@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const userRouter = Router();
 
-import UsersController from "../controllers/user.controller";
-import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth";
+import UsersController from "../controllers/user.controller.js";
+import { authenticateUser, verifyCreator, verifyUser } from "../utils/auth.js";
 
 userRouter
   // @desc Register User
