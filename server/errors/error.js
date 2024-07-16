@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
 export async function errorHandler(err, req, res, next) {
-  console.log("in error handler");
   let customError = {
     // set default
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR, //name: "ali" || process.env.name

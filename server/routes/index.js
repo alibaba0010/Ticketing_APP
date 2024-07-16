@@ -7,7 +7,7 @@ import { routeError } from "../errors/route.error.js";
 const indexRouter = express();
 indexRouter
   .use(json())
-  .use("/api/users", userRouter)
+  .use("/users", userRouter)
   // .use("/api/events", eventRouter)
 
   .use(routeError)
