@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import dotenv from "dotenv";
-import cnnectToDB from "./utils/db.js";
-import app from "./app.js";
+import cnnectToDB from "./utils/db";
+import app from "./app";
 dotenv.config();
 const PORT = process.env.PORT || 2000;
 const uri = process.env.MONGO_URL;

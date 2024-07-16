@@ -2,10 +2,10 @@ import express, { json } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
 import cors from "cors";
-import userRouter from "./routes/index.js";
+import userRouter from "./routes/index";
 import dotenv from "dotenv";
-import { errorHandler } from "./errors/error.js";
-import { routeError } from "./errors/route.error.js";
+import { errorHandler } from "./errors/error";
+import { routeError } from "./errors/route.error";
 dotenv.config();
 
 const app = express();

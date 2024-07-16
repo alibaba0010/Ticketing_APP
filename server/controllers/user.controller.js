@@ -1,10 +1,10 @@
 import { StatusCodes } from "http-status-codes";
-import { getPagination } from "../utils/query.js";
-import User from "../models/users/userDB.js";
-import BadRequestError from "../errors/badRequest.js";
-import notFoundError from "../errors/notFound.js";
-import UnAuthenticatedError from "../errors/unaunthenticated.js";
-import { sendEmail } from "../utils/Email.js";
+import { getPagination } from "../utils/query";
+import User from "../models/users/userDB";
+import BadRequestError from "../errors/badRequest";
+import notFoundError from "../errors/notFound";
+import UnAuthenticatedError from "../errors/unaunthenticated";
+import { sendEmail } from "../utils/Email";
 import {
   checkCreator,
   checkIfExists,
@@ -12,9 +12,9 @@ import {
   findUser,
   requiredFields,
   checkEmail
-} from "../models/users/userModel.js";
-import UnAuthorizedError from "../errors/unauthorized.js";
-import NotFoundError from "../errors/notFound.js";
+} from "../models/users/userModel";
+import UnAuthorizedError from "../errors/unauthorized";
+import NotFoundError from "../errors/notFound";
 class UsersController {
   // CREATE NEW USER
   static async httpAddNewUser(request, response) {
