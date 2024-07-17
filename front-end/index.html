@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event - Event Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animated-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        .hover-grow { transition: transform 0.3s ease; }
+        .hover-grow:hover { transform: scale(1.05); }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100 font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="animated-bg p-4 text-white flex justify-between shadow-lg">
+        <div>
+            <h1 class="text-3xl font-bold hover-grow">Event Management</h1>
+        </div>
+        <div>
+            <a href="#" class="text-white hover:underline mx-4 transition-colors duration-300 hover:text-yellow-300">Home</a>
+            <a href="#" class="text-white hover:underline mx-4 transition-colors duration-300 hover:text-yellow-300">Events</a>
+            <a href="#" class="text-white hover:underline mx-4 transition-colors duration-300 hover:text-yellow-300">Logout</a>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <!-- Main -->
+    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl glass-effect">
+            <!-- Introduction section -->
+            <div class="text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Create New Event</h2>
+                <p class="text-gray-700">
+                    Fill in the details below to create a new event. Make sure to provide accurate information for your attendees.
+                </p>
+            </div>
+            <br>
+            <!-- Create Event Form -->
+            <div>
+                <h2 class="text-xl mb-4 font-semibold text-indigo-600">Event Details</h2>
+                <form id="createEventForm" class="space-y-4">
+                    <input type="text" id="eventName" placeholder="Event Name" required class="w-full p-2 border border-indigo-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
+                    <input type="datetime-local" id="eventDate" required class="w-full p-2 border border-indigo-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
+                    <input type="text" id="eventLocation" placeholder="Location" required class="w-full p-2 border border-indigo-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
+                    <input type="number" id="eventPrice" placeholder="Price" required class="w-full p-2 border border-indigo-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
+                    <input type="number" id="eventTickets" placeholder="Number of Tickets" required class="w-full p-2 border border-indigo-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
+                    <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">Create Event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="animated-bg text-center p-4 text-white mt-6 shadow-lg">
+        <p class="hover-grow inline-block">Powered by Event Management Team</p>
+    </footer>
+    <script src="index.js"></script>
+</body>
+</html>

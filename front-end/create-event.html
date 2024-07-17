@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        .hover-grow {
+            transition: all 0.3s;
+        }
+        
+        .hover-grow:hover {
+            transform: scale(1.05);
+        }
+        
+        .shadow-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .load {
+            width: 100px;
+            height: 100px;
+            margin: 110px auto 0;
+            border: solid 10px #8822aa;
+            border-radius: 50%;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            transition: all 0.5s ease-in;
+            animation: rotate 1.0s linear infinite;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100 font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="gradient-bg p-4 text-white flex justify-between shadow-lg">
+        <div>
+            <h1 class="text-3xl font-bold hover-grow">Event Management System</h1>
+        </div>
+        <div>
+            <a href="#" class="text-white hover:underline mx-4 transition duration-300 ease-in-out hover:text-yellow-300">Welcome {{ user.username }}</a>
+            <a href="/event-list" class="text-white hover:underline mx-4 transition duration-300 ease-in-out hover:text-yellow-300">Saved Events</a>
+            <a href="#" class="text-white hover:underline transition duration-300 ease-in-out hover:text-yellow-300">Logout</a>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <!-- Main -->
+    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl flex flex-col">
+            <!-- Introduction section -->
+            <div class="text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-600">Welcome to the Event Management System</h2>
+                <p class="text-gray-700">
+                    Create and manage your events easily. Fill out the form below to add a new event to your system!
+                </p>
+            </div>
+            <br>
+            <!-- Create Event Form -->
+            <div>
+                <h2 class="text-xl mb-4 font-semibold text-blue-600">Create New Event</h2>
+                <form id="createEventForm" class="space-y-4">
+                    <input type="text" id="eventName" placeholder="Event Name" required class="w-full p-2 border border-blue-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    <input type="datetime-local" id="eventDate" required class="w-full p-2 border border-blue-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    <input type="text" id="eventLocation" placeholder="Location" required class="w-full p-2 border border-blue-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    <input type="number" id="eventPrice" placeholder="Price" required class="w-full p-2 border border-blue-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    <input type="number" id="eventTickets" placeholder="Number of Tickets" required class="w-full p-2 border border-blue-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300 shadow-hover">Create Event</button>
+                </form>
+            </div>
+            <!-- Loading circle -->
+            <div style="display: none;" id="loading-circle" class="load"></div>
+            <!-- Event Creation Confirmation -->
+            <section class="mt-10 flex-grow">
+                <h2 class="text-xl mb-4 font-semibold text-blue-600">Event Creation Status</h2>
+                <div id="eventStatus" class="mt-2 text-gray-700 space-y-4"></div>
+            </section>
+        </div>
+    </div>
+    <footer class="gradient-bg text-center p-4 text-white mt-6 shadow-lg">
+        Powered by Event Management System
+    </footer>
+    <script src="cre-event.js"></script>
+</body>
+</html>
