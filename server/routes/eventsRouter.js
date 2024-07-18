@@ -11,6 +11,7 @@ eventRouter
     verifyCreator,
     EventsController.httpAddNewEvent
   )
+  .post("/:eventId/:ticketId", EventsController.httpBookTicket)
   // GET TOTAL NO OF TICKETS BOOKED FOR THE EVENT
   .get(
     "/:eventId/tickets",
@@ -18,6 +19,5 @@ eventRouter
     verifyCreator,
     EventsController.httpGetTickets
   );
-// .get("/:id", getTicketWithId)
 // .patch("/:id", authentication, validateTicket, updateTicket);
 export default eventRouter;
