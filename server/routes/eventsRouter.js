@@ -11,6 +11,7 @@ eventRouter
     verifyCreator,
     EventsController.httpAddNewEvent
   )
+  // GET TOTAL NO OF TICKETS BOOKED FOR THE EVENT
   .get(
     "/:eventId/tickets",
     authenticateUser,
