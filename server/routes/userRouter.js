@@ -11,7 +11,7 @@ userRouter
   // @access Public
   .post("/register", UsersController.httpAddNewUser)
   .post("/creator/register", UsersController.httpAddNewCreator)
-  .post("/users/login", UsersController.httpLogin)
+  .post("/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
   .patch(
     "/users/user",

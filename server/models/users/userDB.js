@@ -13,7 +13,6 @@ const UserSchema = new Schema(
     name: {
       type: String,
       required: [true, "Please provide name"],
-      unique: [true, "Username already in use"],
       minlength: 3,
       maxlength: 50,
     },
@@ -21,7 +20,6 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       match: [
-        // /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/,
         "Please provide a valid email",
       ],
@@ -39,22 +37,6 @@ const UserSchema = new Schema(
     paymentInformation: {
       type: String,
     },
-    address: {
-      type: [String],
-    },
-    location: [
-      {
-        type: {
-          type: String,
-          enum: ["Point"],
-        },
-        coordinates: {
-          type: [Number],
-          index: "2dsphere",
-        },
-        formattedAddress: String,
-      },
-    ],
   },
 
   { timestamps: true }
@@ -78,19 +60,7 @@ UserSchema.methods.createJWT = async function () {
   return signInToken;
 };
 
-// Create forgot password token
-UserSchema.methods.createPasswordToken = async function () {
-  await redisClient.connect();
-  const salt = await bcrypt.genSalt(10);
-  console.log("Id: ", this.id);
-  const hashedToken = await bcrypt.hash(this.id, salt);
-  console.log("Hashed token in db: ", hashedToken);
 
-  await redisClient.setEx(hashedToken, exp, this.id);
-
-  await redisClient.disconnect();
-  return hashedToken;
-};
 
 // compare password when login in
 UserSchema.methods.comparePassword = async function (userPassword) {
