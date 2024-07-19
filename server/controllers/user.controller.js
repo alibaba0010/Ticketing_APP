@@ -66,7 +66,7 @@ class UsersController {
     const { name } = request.body;
     const { userId } = request.user;
 
-    if (!name) throw new BadRequestError("Username field cannot be empty");
+    if (!name) throw new BadRequestError("Name field cannot be empty");
 
     const user = await User.findById(userId);
     if (!user) throw new notFoundError("User not Found");
