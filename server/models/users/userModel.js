@@ -35,4 +35,5 @@ export const checkEmail = async (email) => {
 
   if (!checkEmailExist)
     throw new BadRequestError("Email or name already exists");
+  return checkEmailExist;
 };

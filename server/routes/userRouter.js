@@ -14,14 +14,14 @@ userRouter
   .post("/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
   .patch(
-    "/users/user",
+    "//user",
     authenticateUser,
     verifyUser,
     UsersController.updateUser
   )
   //get users who has booked the tickets
   .get(
-    "/users",
+    "/",
     authenticateUser,
     verifyCreator,
     UsersController.getAllUserByCreator
@@ -29,7 +29,7 @@ userRouter
   .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
   .get(
-    "/users/logout",
+    "/logout",
     authenticateUser,
     verifyUser,
     UsersController.logOutUser
