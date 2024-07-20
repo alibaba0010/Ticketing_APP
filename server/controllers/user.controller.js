@@ -10,7 +10,7 @@ import {
   comparePassword,
   findUser,
   requiredFields,
-  checkEmail
+  checkEmail,
 } from "../models/users/userModel";
 
 class UsersController {
@@ -33,7 +33,7 @@ class UsersController {
   static async httpAddNewCreator(request, response) {
     const creator = request.body;
     creator.isCreator = true;
-    const { name, email, password, confirmPassword } = creator;
+    const { name, email, password, confirmPassword, isCreator } = creator;
 
     comparePassword(password, confirmPassword);
 

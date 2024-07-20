@@ -32,15 +32,14 @@ const EventSchema = new Schema(
       {
         id: {
           type: String,
-          required: true,
         },
         price: {
           type: [Number],
-          required: true,
+          required: [true, "Please enter a price"],
         },
         quantity: {
           type: Number,
-          required: true,
+          required: [true, "Please enter a quantity"],
         },
       },
     ],

@@ -2,12 +2,11 @@ import express, { json } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
 import cors from "cors";
-import userRouter from "./routes/index";
+import indexRouter from "./routes/index";
 import dotenv from "dotenv";
 import { errorHandler } from "./errors/error";
 import { routeError } from "./errors/route.error";
 dotenv.config();
-
 
 const app = express();
 app
@@ -19,8 +18,8 @@ app
       secure: false, //process.env.NODE_ENV !== "test"
       maxAge: 24 * 60 * 60 * 1000,
     })
-  ) 
-  .use("/api/v1", userRouter)
+  )
+  .use("/api/v1", indexRouter)
 
   .use(routeError)
   .use(errorHandler);

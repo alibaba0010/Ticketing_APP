@@ -13,12 +13,7 @@ userRouter
   .post("/creator/register", UsersController.httpAddNewCreator)
   .post("/login", UsersController.httpLogin)
   //update user already  logged in with his token verification
-  .patch(
-    "//user",
-    authenticateUser,
-    verifyUser,
-    UsersController.updateUser
-  )
+  .patch("/user", authenticateUser, verifyUser, UsersController.updateUser)
   //get users who has booked the tickets
   .get(
     "/",
@@ -28,11 +23,6 @@ userRouter
   )
   .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
-  .get(
-    "/logout",
-    authenticateUser,
-    verifyUser,
-    UsersController.logOutUser
-  );
+  .get("/logout", authenticateUser, verifyUser, UsersController.logOutUser);
 
 export default userRouter;
