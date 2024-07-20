@@ -6,7 +6,7 @@ const eventRouter = Router();
 
 eventRouter
   .post(
-    "/:eventId/:ticketId",
+    "/event",
     authenticateUser,
     verifyCreator,
     EventsController.httpAddNewEvent

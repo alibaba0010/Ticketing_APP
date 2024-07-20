@@ -7,6 +7,6 @@ const indexRouter = express();
 indexRouter
   .use(json())
   .use("/users", userRouter)
-  .use("/api/events", eventRouter)
+  .use("/events", eventRouter)
 
 export default indexRouter;

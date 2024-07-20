@@ -14,7 +14,7 @@ class EventsController {
   static async httpAddNewEvent(request, response) {
     const { userId } = request.user;
     const { name, description, date, quantity, price } = request.body;
-    requiredFields(name, name, date, quantity, price);
+    requiredFields(name, date, quantity, price);
 
     const eventCreated = await Event.create({
       name,

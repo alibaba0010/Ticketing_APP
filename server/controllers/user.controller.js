@@ -33,7 +33,7 @@ class UsersController {
   static async httpAddNewCreator(request, response) {
     const creator = request.body;
     creator.isCreator = true;
-    const { name, email, password, confirmPassword, isCreator } = creator;
+    const { name, email, password, confirmPassword } = creator;
 
     comparePassword(password, confirmPassword);
 
