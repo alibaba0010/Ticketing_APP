@@ -33,6 +33,8 @@ class EventsController {
     console.log(eventCreated);
     response.status(StatusCodes.CREATED).json({
       name: eventCreated.name,
+      description: eventCreated.description,
+      date: eventCreated.date,
     });
   }
 
