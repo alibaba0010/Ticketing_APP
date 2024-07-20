@@ -4,7 +4,6 @@ import User from "../models/users/userDB";
 import BadRequestError from "../errors/badRequest";
 import notFoundError from "../errors/notFound";
 import UnAuthenticatedError from "../errors/unaunthenticated";
-import { sendEmail } from "../utils/Email";
 import {
   checkCreator,
   checkIfExists,
@@ -13,8 +12,7 @@ import {
   requiredFields,
   checkEmail
 } from "../models/users/userModel";
-import UnAuthorizedError from "../errors/unauthorized";
-import NotFoundError from "../errors/notFound";
+
 class UsersController {
   // CREATE NEW USER
   static async httpAddNewUser(request, response) {
