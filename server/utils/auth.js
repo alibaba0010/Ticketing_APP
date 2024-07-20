@@ -39,7 +39,10 @@ export async function verifyUser(req, res, next) {
 // VERIFY CREATOR
 export async function verifyCreator(req, res, next) {
   const user = await User.findById(req.user.userId).select("-password");
-  if (user || user.isCreator === true) {
+  if (!user) {
+    throw new UnauthenticatedError("User not authenticated");
+  }
+  if (user.isCreator === true) {
     next();
   } else {
     throw new UnAuthorizedError("Only creator is ascessible");
