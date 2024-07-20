@@ -15,7 +15,8 @@ class EventsController {
     const { userId } = request.user;
     const { name, description, date, quantity, price } = request.body;
     requiredFields(name, date, quantity, price);
-    const newEvent = {
+
+    const eventCreated = await Event.create({
       name,
       description,
       userId,
@@ -27,8 +28,7 @@ class EventsController {
           quantity,
         },
       ],
-    };
-    const eventCreated = await db.event.save(newEvent);
+    });
 
     console.log(eventCreated);
     response.status(StatusCodes.CREATED).json({

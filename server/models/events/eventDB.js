@@ -9,10 +9,6 @@ const EventSchema = new Schema(
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
-      required: true,
-    },
     description: {
       type: String,
       required: true,
@@ -34,7 +30,7 @@ const EventSchema = new Schema(
           type: String,
         },
         price: {
-          type: [Number],
+          type: Number,
           required: [true, "Please enter a price"],
         },
         quantity: {
