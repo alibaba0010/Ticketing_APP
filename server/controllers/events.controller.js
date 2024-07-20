@@ -30,7 +30,6 @@ class EventsController {
       ],
     });
 
-    console.log(eventCreated);
     response.status(StatusCodes.CREATED).json({
       name: eventCreated.name,
       description: eventCreated.description,
@@ -38,6 +37,14 @@ class EventsController {
     });
   }
 
+  static async httpGetEvents(request, response) {
+    const { userId } = request.user;
+
+    const events = await Event.find({ $match: userId });
+    return response
+      .status(StatusCodes.OK)
+      .json({ events, nbHits: events.length });
+  }
   static async httpGetTickets(request, response) {
     const { userId } = request.user;
   }
