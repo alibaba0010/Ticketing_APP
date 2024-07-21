@@ -16,7 +16,7 @@ app
     cookieSession({
       signed: false,
       secure: false, //process.env.NODE_ENV !== "test"
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 5000,
     })
   )
   .use("/api/v1", indexRouter)

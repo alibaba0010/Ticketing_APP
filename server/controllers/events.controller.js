@@ -3,7 +3,11 @@ import BadRequestError from "../errors/badRequest";
 import notFoundError from "../errors/notFound";
 import UnAuthenticatedError from "../errors/unaunthenticated";
 import { sendEmail } from "../utils/Email";
-import { checkIfExists, requiredFields } from "../models/events/eventModel";
+import {
+  checkDate,
+  checkIfExists,
+  requiredFields,
+} from "../models/events/eventModel";
 import { checkCreator, findUser } from "../models/users/userModel";
 
 import UnAuthorizedError from "../errors/unauthorized.js";
@@ -15,6 +19,7 @@ class EventsController {
     const { userId } = request.user;
     const { name, description, date, quantity, price } = request.body;
     requiredFields(name, date, quantity, price);
+    checkDate(date);
 
     const eventCreated = await Event.create({
       name,
@@ -40,7 +45,7 @@ class EventsController {
   static async httpGetEvents(request, response) {
     const { userId } = request.user;
 
-    const events = await Event.find({ $match: userId });
+    const events = await Event.find({ userId });
     return response
       .status(StatusCodes.OK)
       .json({ events, nbHits: events.length });
@@ -50,8 +55,9 @@ class EventsController {
   }
   static async httpBookTicket(request, response) {
     const { userId } = request.user;
-    const { eventId, ticketId } = request.params;
+    const { eventId } = request.params;
     const event = await checkIfExists(eventId);
+    console.log(event);
     const user = await findUser(userId);
 
     const ticket = event.tickets.find((t) => t.id === ticketId);

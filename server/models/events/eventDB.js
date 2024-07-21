@@ -22,7 +22,11 @@ const EventSchema = new Schema(
     },
     date: {
       type: Date,
-      required: true,
+      required: [true, "Please select a date"],
+    },
+    isAvailale: {
+      type: Boolean,
+      default: true,
     },
     tickets: [
       {
@@ -37,11 +41,14 @@ const EventSchema = new Schema(
           type: Number,
           required: [true, "Please enter a quantity"],
         },
+        isBooked: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
   },
   { timestamps: true }
 );
 
-const Event = model("Event", EventSchema);
-export { Event };
+export default model("Event", EventSchema);
