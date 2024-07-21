@@ -19,8 +19,8 @@ const TicketSchema = new Schema(
       required: true,
     },
     price: {
-      type: [Number],
-      index: "2dsphere",
+      type: Number,
+      required: [true, "Please enter a price"],
     },
   },
   { timestamps: true }

@@ -1,7 +1,5 @@
 import pkg, { Types } from "mongoose";
 const { Schema, model } = pkg;
-import dotenv from "dotenv";
-dotenv.config();
 
 const EventSchema = new Schema(
   {
@@ -51,4 +49,5 @@ const EventSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Event", EventSchema);
+const Event = model("Event", EventSchema);
+export default Event;

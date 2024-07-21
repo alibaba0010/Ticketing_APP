@@ -1,18 +1,16 @@
 import { StatusCodes } from "http-status-codes";
 import BadRequestError from "../errors/badRequest";
-import notFoundError from "../errors/notFound";
-import UnAuthenticatedError from "../errors/unaunthenticated";
-import { sendEmail } from "../utils/Email";
+import Ticket from "../models/events/ticketDB";
 import {
   checkDate,
+  checkIfCreaator,
   checkIfExists,
+  decrementQuantity,
   requiredFields,
+  ticketBooked,
 } from "../models/events/eventModel";
 import { checkCreator, findUser } from "../models/users/userModel";
-
-import UnAuthorizedError from "../errors/unauthorized.js";
-import NotFoundError from "../errors/notFound.js";
-import { Event } from "../models/events/eventDB.js";
+import Event from "../models/events/eventDB.js";
 import { v4 as uuidv4 } from "uuid";
 class EventsController {
   static async httpAddNewEvent(request, response) {
@@ -44,7 +42,6 @@ class EventsController {
 
   static async httpGetEvents(request, response) {
     const { userId } = request.user;
-
     const events = await Event.find({ userId });
     return response
       .status(StatusCodes.OK)
@@ -55,19 +52,28 @@ class EventsController {
   }
   static async httpBookTicket(request, response) {
     const { userId } = request.user;
+    await checkIfCreaator(userId);
+
+    await findUser(userId);
     const { eventId } = request.params;
+
     const event = await checkIfExists(eventId);
-    console.log(event);
-    const user = await findUser(userId);
+    const quantity = event.tickets[0].quantity;
+    const ticket = event.tickets[0].isBooked;
+    const newQuantity = decrementQuantity(quantity);
+    const booked = ticketBooked(ticket);
+    const ticketId = event.tickets[0].id;
 
-    const ticket = event.tickets.find((t) => t.id === ticketId);
-    console.log(`Ticket ${ticket}`);
-    if (!ticket) throw new NotFoundError("Ticket not found");
+    await Ticket.create({
+      userId,
+      eventId,
+      ticketId,
+      price: event.tickets[0].price,
+    });
 
-    if (ticket.quantity <= 0) throw new BadRequestError("Ticket sold out");
-
-    await ticket.updateOne({ quantity: ticket.quantity - 1 });
-
+    event.tickets[0].isBooked = booked;
+    event.tickets[0].quantity = newQuantity;
+    await event.save();
     response
       .status(StatusCodes.OK)
       .json({ message: "Ticket booked successfully" });
