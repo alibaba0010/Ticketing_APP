@@ -41,4 +41,18 @@ export const ticketBooked = (ticket) => {
 export const checkIfCreaator = async (userId) => {
   const checkCreator = await Event.find({ userId });
   if (checkCreator) throw new UnAuthorizedError("Creator cant book a ticket");
+  return checkCreator;
+};
+export const checkIfTicketAvailable = async (eventId) => {
+  const event = await Event.findById(eventId);
+  if ((event.tickets[0].quantity = 0))
+    throw new UnAuthorizedError("Ticket not available");
+};
+
+export const payTicket = async (event) => {
+  const charge = await stripe.charges.create({
+    currency: "usd",
+    amount: order.price * 100,
+    source: token,
+  });
 };

@@ -52,7 +52,7 @@ class EventsController {
   }
   static async httpBookTicket(request, response) {
     const { userId } = request.user;
-    await checkIfCreaator(userId);
+    const user = await checkIfCreaator(userId);
 
     await findUser(userId);
     const { eventId } = request.params;
@@ -66,6 +66,7 @@ class EventsController {
 
     await Ticket.create({
       userId,
+      email: user.email,
       eventId,
       ticketId,
       price: event.tickets[0].price,

@@ -9,6 +9,10 @@ const TicketSchema = new Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
     eventId: {
       type: Types.ObjectId,
       required: true,
