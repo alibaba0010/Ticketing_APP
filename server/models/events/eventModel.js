@@ -80,8 +80,14 @@ export const sendEmail = async (user, event) => {
  <p>Regards...</p>
  <p>AliBaba Team</p>
 `;
-  const subject = "Password Reset Request";
-  const sendTo = user.email;
-  const sentFrom = process.env.EMAIL_USER;
-  const replyTo = process.env.EMAIL_USER;
+  try {
+    const subject = "Password Reset Request";
+    const sendTo = user.email;
+    const sentFrom = process.env.EMAIL_USER;
+    const replyTo = process.env.EMAIL_USER;
+    await sendEmail(message, subject, sentFrom, sendTo, replyTo);
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+    throw new Error("Email not sent, please try again");
+  }
 };
