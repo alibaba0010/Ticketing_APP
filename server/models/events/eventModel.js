@@ -1,9 +1,10 @@
 import BadRequestError from "../../errors/badRequest";
 import UnAuthorizedError from "../../errors/unauthorized";
 import notFoundError from "../../errors/notFound";
+import dotenv from "dotenv";
 import Event from "./eventDB";
 import { stripe } from "../../utils/stripe";
-
+dotenv.config();
 export const requiredFields = (name, date, quantity, price) => {
   if (!name || !name || !date || !quantity || !price)
     throw new BadRequestError("Please fill all required field");
@@ -39,9 +40,9 @@ export const ticketBooked = (ticket) => {
   return ++ticket;
 };
 export const checkIfCreaator = async (userId) => {
-  const checkCreator = await Event.find({ userId });
-  if (checkCreator) throw new UnAuthorizedError("Creator cant book a ticket");
-  return checkCreator;
+  const checkCreator = await Event.findOne({ userId });
+  if (checkCreator.userId === userId)
+    throw new UnAuthorizedError("Creator cant book a ticket");
 };
 export const checkIfTicketAvailable = async (eventId) => {
   const event = await Event.findById(eventId);
@@ -57,11 +58,30 @@ export const payTicket = async (event) => {
   });
 };
 
-export const createPayment = async (event) => {
+export const createPayment = async (price) => {
   const payment = await stripe.paymentIntents.create({
-    amount: event.tickets[0].price * 100,
+    amount: price * 100,
     currency: "usd",
     payment_method_types: ["card"],
   });
   return payment;
+};
+
+export const sendEmail = async (user, event) => {
+  console.log(`User ${user} with event ${event}`);
+  //Send email here
+  const message = `
+  <h2>Hello ${user.name}</h2>
+  <p>Please use the url below to reset your password</p>  
+  <p>This reset link is valid for only 20minutes.</p>
+  
+ <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+
+ <p>Regards...</p>
+ <p>AliBaba Team</p>
+`;
+  const subject = "Password Reset Request";
+  const sendTo = user.email;
+  const sentFrom = process.env.EMAIL_USER;
+  const replyTo = process.env.EMAIL_USER;
 };

@@ -5,6 +5,7 @@ import {
   checkDate,
   checkIfCreaator,
   checkIfExists,
+  createPayment,
   decrementQuantity,
   requiredFields,
   ticketBooked,
@@ -52,7 +53,8 @@ class EventsController {
   }
   static async httpBookTicket(request, response) {
     const { userId } = request.user;
-    const user = await checkIfCreaator(userId);
+    const user = await findUser(userId);
+    await checkIfCreaator(userId);
 
     await findUser(userId);
     const { eventId } = request.params;
@@ -60,21 +62,25 @@ class EventsController {
     const event = await checkIfExists(eventId);
     const quantity = event.tickets[0].quantity;
     const ticket = event.tickets[0].isBooked;
+    const price = event.tickets[0].price;
+
     const newQuantity = decrementQuantity(quantity);
     const booked = ticketBooked(ticket);
+    const checkout = await createPayment(price);
+    console.log(checkout);
     const ticketId = event.tickets[0].id;
 
-    await Ticket.create({
-      userId,
-      email: user.email,
-      eventId,
-      ticketId,
-      price: event.tickets[0].price,
-    });
+    // await Ticket.create({
+    //   userId,
+    //   email: user.email,
+    //   eventId,
+    //   ticketId,
+    //   price: event.tickets[0].price,
+    // });
 
     event.tickets[0].isBooked = booked;
     event.tickets[0].quantity = newQuantity;
-    await event.save();
+    // await event.save();
     response
       .status(StatusCodes.OK)
       .json({ message: "Ticket booked successfully" });
