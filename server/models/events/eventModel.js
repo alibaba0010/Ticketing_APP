@@ -87,7 +87,6 @@ export const sendEmail = async (user, event) => {
     const replyTo = process.env.EMAIL_USER;
     await sendEmail(message, subject, sentFrom, sendTo, replyTo);
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR);
     throw new Error("Email not sent, please try again");
   }
 };
