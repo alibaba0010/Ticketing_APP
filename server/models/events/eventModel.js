@@ -2,7 +2,7 @@ import BadRequestError from "../../errors/badRequest";
 import UnAuthorizedError from "../../errors/unauthorized";
 import notFoundError from "../../errors/notFound";
 import Event from "./eventDB";
-import { expect } from "chai";
+import { stripe } from "../../utils/stripe";
 
 export const requiredFields = (name, date, quantity, price) => {
   if (!name || !name || !date || !quantity || !price)
@@ -55,4 +55,13 @@ export const payTicket = async (event) => {
     amount: order.price * 100,
     source: token,
   });
+};
+
+export const createPayment = async (event) => {
+  const payment = await stripe.paymentIntents.create({
+    amount: event.tickets[0].price * 100,
+    currency: "usd",
+    payment_method_types: ["card"],
+  });
+  return payment;
 };
