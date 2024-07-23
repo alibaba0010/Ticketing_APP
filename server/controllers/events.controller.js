@@ -8,6 +8,7 @@ import {
   createPayment,
   decrementQuantity,
   requiredFields,
+  sendEmail,
   ticketBooked,
 } from "../models/events/eventModel";
 import { checkCreator, findUser } from "../models/users/userModel";
@@ -53,12 +54,11 @@ class EventsController {
   }
   static async httpBookTicket(request, response) {
     const { userId } = request.user;
-    const user = await findUser(userId);
-    await checkIfCreaator(userId);
-
-    await findUser(userId);
     const { eventId } = request.params;
 
+    await checkIfCreaator(userId);
+    const user = await findUser(userId);
+    const token = "tok_visa";
     const event = await checkIfExists(eventId);
     const quantity = event.tickets[0].quantity;
     const ticket = event.tickets[0].isBooked;
@@ -66,8 +66,7 @@ class EventsController {
 
     const newQuantity = decrementQuantity(quantity);
     const booked = ticketBooked(ticket);
-    const checkout = await createPayment(price);
-    console.log(checkout);
+    await createPayment(token, price);
     const ticketId = event.tickets[0].id;
 
     // await Ticket.create({
@@ -81,6 +80,7 @@ class EventsController {
     event.tickets[0].isBooked = booked;
     event.tickets[0].quantity = newQuantity;
     // await event.save();
+    await sendEmail(user, event);
     response
       .status(StatusCodes.OK)
       .json({ message: "Ticket booked successfully" });

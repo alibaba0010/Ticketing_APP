@@ -40,9 +40,10 @@ export const ticketBooked = (ticket) => {
   return ++ticket;
 };
 export const checkIfCreaator = async (userId) => {
+  console.log(`User ${userId}`);
   const checkCreator = await Event.findOne({ userId });
-  if (checkCreator.userId === userId)
-    throw new UnAuthorizedError("Creator cant book a ticket");
+  console.log(checkCreator);
+  if (checkCreator) throw new UnAuthorizedError("Creator cant book a ticket");
 };
 export const checkIfTicketAvailable = async (eventId) => {
   const event = await Event.findById(eventId);
@@ -58,11 +59,11 @@ export const payTicket = async (event) => {
   });
 };
 
-export const createPayment = async (price) => {
+export const createPayment = async (token, price) => {
   const payment = await stripe.paymentIntents.create({
     amount: price * 100,
     currency: "usd",
-    payment_method_types: ["card"],
+    source: token, //    payment_method_types: ["card"],
   });
   return payment;
 };
