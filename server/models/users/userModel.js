@@ -29,6 +29,7 @@ export const checkCreator = async (userId) => {
 export const findUser = async (userId) => {
   const user = await User.findById(userId);
   if (!user) throw new notFoundError("Unable to get user");
+  return user;
 };
 export const checkEmail = async (email) => {
   const checkEmailExist = await User.findOne({ email });

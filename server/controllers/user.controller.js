@@ -100,8 +100,7 @@ class UsersController {
   // SHOW CURRENT USER
   static showCurrentUser = async (request, response) => {
     const { userId } = request.user;
-    const user = await User.findById(userId);
-    if (!user) throw new notFoundError("Unable to get User");
+    const user = await findUser(userId);
 
     const { name, id, email, isCreator } = user;
 

@@ -30,6 +30,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^8.4.5",
     "nodemailer": "^6.9.14",
+    "react-stripe-checkout": "^2.6.3",
     "redis": "^4.6.15",
     "sha1": "^1.1.1",
     "stripe": "^16.2.0",

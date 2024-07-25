@@ -40,9 +40,7 @@ export const ticketBooked = (ticket) => {
   return ++ticket;
 };
 export const checkIfCreaator = async (userId) => {
-  console.log(`User ${userId}`);
   const checkCreator = await Event.findOne({ userId });
-  console.log(checkCreator);
   if (checkCreator) throw new UnAuthorizedError("Creator cant book a ticket");
 };
 export const checkIfTicketAvailable = async (eventId) => {
@@ -63,20 +61,20 @@ export const createPayment = async (token, price) => {
   const payment = await stripe.paymentIntents.create({
     amount: price * 100,
     currency: "usd",
-    source: token, //    payment_method_types: ["card"],
+    // source: token,
+    payment_method_types: ["card"],
   });
   return payment;
 };
 
-export const sendEmail = async (user, event) => {
-  console.log(`User ${user} with event ${event}`);
+export const sendEmail = async (userName, name, date) => {
+  console.log(`User ${userName} ${name} with event ${date}`);
   //Send email here
   const message = `
   <h2>Hello ${user.name}</h2>
-  <p>Please use the url below to reset your password</p>  
-  <p>This reset link is valid for only 20minutes.</p>
+  <h4>You've successfully book ticket for this event ${name} happening on ${date}</h4>  
+  <p>We'll be glad to see you there</p>
   
- <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
 
  <p>Regards...</p>
  <p>AliBaba Team</p>

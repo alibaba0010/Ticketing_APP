@@ -58,15 +58,16 @@ class EventsController {
 
     await checkIfCreaator(userId);
     const user = await findUser(userId);
-    const token = "tok_visa";
+    const token = "tok_visa" || request.body.token;
     const event = await checkIfExists(eventId);
+
     const quantity = event.tickets[0].quantity;
     const ticket = event.tickets[0].isBooked;
     const price = event.tickets[0].price;
 
     const newQuantity = decrementQuantity(quantity);
     const booked = ticketBooked(ticket);
-    await createPayment(token, price);
+    const checkout = await createPayment(token, price);
     const ticketId = event.tickets[0].id;
 
     // await Ticket.create({
@@ -80,7 +81,10 @@ class EventsController {
     event.tickets[0].isBooked = booked;
     event.tickets[0].quantity = newQuantity;
     // await event.save();
-    await sendEmail(user, event);
+    console.log(`User name ${user.name}`);
+    const { userName } = user.name;
+    const { date, name } = event;
+    await sendEmail(userName, name, date);
     response
       .status(StatusCodes.OK)
       .json({ message: "Ticket booked successfully" });

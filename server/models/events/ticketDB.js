@@ -9,6 +9,10 @@ const TicketSchema = new Schema(
       type: String,
       required: true,
     },
+    stripeId: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
