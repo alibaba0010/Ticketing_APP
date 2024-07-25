@@ -70,21 +70,22 @@ class EventsController {
     const checkout = await createPayment(token, price);
     const ticketId = event.tickets[0].id;
 
-    // await Ticket.create({
-    //   userId,
-    //   email: user.email,
-    //   eventId,
-    //   ticketId,
-    //   price: event.tickets[0].price,
-    // });
-
     event.tickets[0].isBooked = booked;
     event.tickets[0].quantity = newQuantity;
-    // await event.save();
-    console.log(`User name ${user.name}`);
-    const { userName } = user.name;
+    const { email } = user;
+    const userName = user.name;
     const { date, name } = event;
-    await sendEmail(userName, name, date);
+    await Ticket.create({
+      userId,
+      stripeId: checkout.id,
+      email: user.email,
+      eventId,
+      ticketId,
+      price: event.tickets[0].price,
+    });
+
+    await event.save();
+    await sendEmail(userName, email, name, date);
     response
       .status(StatusCodes.OK)
       .json({ message: "Ticket booked successfully" });

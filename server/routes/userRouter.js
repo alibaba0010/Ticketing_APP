@@ -15,12 +15,7 @@ userRouter
   //update user already  logged in with his token verification
   .patch("/user", authenticateUser, verifyUser, UsersController.updateUser)
   //get users who has booked the tickets
-  .get(
-    "/",
-    authenticateUser,
-    verifyCreator,
-    UsersController.getAllUserByCreator
-  )
+
   .get("/user", authenticateUser, verifyUser, UsersController.showCurrentUser)
 
   .get("/logout", authenticateUser, verifyUser, UsersController.logOutUser);

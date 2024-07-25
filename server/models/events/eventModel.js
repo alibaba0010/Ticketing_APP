@@ -67,11 +67,10 @@ export const createPayment = async (token, price) => {
   return payment;
 };
 
-export const sendEmail = async (userName, name, date) => {
-  console.log(`User ${userName} ${name} with event ${date}`);
+export const sendEmail = async (userName, email, name, date) => {
   //Send email here
   const message = `
-  <h2>Hello ${user.name}</h2>
+  <h2>Hello ${userName}</h2>
   <h4>You've successfully book ticket for this event ${name} happening on ${date}</h4>  
   <p>We'll be glad to see you there</p>
   
@@ -81,7 +80,7 @@ export const sendEmail = async (userName, name, date) => {
 `;
   try {
     const subject = "Password Reset Request";
-    const sendTo = user.email;
+    const sendTo = email;
     const sentFrom = process.env.EMAIL_USER;
     const replyTo = process.env.EMAIL_USER;
     await sendEmail(message, subject, sentFrom, sendTo, replyTo);
