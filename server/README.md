@@ -42,3 +42,7 @@ Events & Tickets
 
 ![](../screenshots/postman_testing.png)
 ![](../screenshots/create_user.png)
+![](../screenshots/show_current_user.png)
+![](../screenshots/create_new_event.png)
+![](../screenshots/only_creator_events.png)
+![](../screenshots/creator_can't_book_ticket.png)
