@@ -11,7 +11,13 @@ eventRouter
     verifyCreator,
     EventsController.httpAddNewEvent
   )
-  .get("/", authenticateUser, verifyCreator, EventsController.httpGetEvents)
+  .get(
+    "/events",
+    authenticateUser,
+    verifyCreator,
+    EventsController.httpGetEvents
+  )
+  .get("/", authenticateUser, verifyUser, EventsController.httpGetAllEvents)
   .patch(
     "/:eventId",
     authenticateUser,
@@ -25,5 +31,4 @@ eventRouter
     verifyCreator,
     EventsController.httpGetTickets
   );
-// .patch("/:id", authentication, validateTicket, updateTicket);
 export default eventRouter;

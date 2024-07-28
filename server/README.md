@@ -30,3 +30,10 @@ Events & Tickets
 ```
 
 ## Events & Tickets
+
+```
+/events/event Create a new event by a creator
+/events/events Get all events created by a creator only
+/events Get all events created
+/events/:eventId/tickets Book an event ticket created by a creator except the creator
+```

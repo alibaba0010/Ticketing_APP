@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-import BadRequestError from "../errors/badRequest";
 import Ticket from "../models/events/ticketDB";
 import {
   checkDate,
@@ -11,7 +10,7 @@ import {
   sendEmail,
   ticketBooked,
 } from "../models/events/eventModel";
-import { checkCreator, findUser } from "../models/users/userModel";
+import { findUser } from "../models/users/userModel";
 import Event from "../models/events/eventDB.js";
 import { v4 as uuidv4 } from "uuid";
 class EventsController {
@@ -45,6 +44,14 @@ class EventsController {
   static async httpGetEvents(request, response) {
     const { userId } = request.user;
     const events = await Event.find({ userId });
+    return response
+      .status(StatusCodes.OK)
+      .json({ events, nbHits: events.length });
+  }
+  static async httpGetAllEvents(request, response) {
+    const { userId } = request.user;
+    await findUser(userId);
+    const events = await Event.find({});
     return response
       .status(StatusCodes.OK)
       .json({ events, nbHits: events.length });
