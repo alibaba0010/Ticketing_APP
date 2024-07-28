@@ -22,3 +22,8 @@ npm install
 
 npm run start-server
 ```
+
+## Screenshots
+
+![](./screenshots/home.png)
+![](./screenshots/postman_testing.png)

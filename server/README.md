@@ -15,7 +15,7 @@ Events & Tickets
 
 ## Routes
 
-[GENERIC_URL](http://localhost:5000/api/v1/)
+[TICKETING_URL](http://localhost:5000/api/v1/)
 
 ### http://localhost:5000/api/v1/
 
@@ -37,3 +37,8 @@ Events & Tickets
 /events Get all events created
 /events/:eventId/tickets Book an event ticket created by a creator except the creator
 ```
+
+## Screenshots
+
+![](../screenshots/postman_testing.png)
+![](../screenshots/create_user.png)

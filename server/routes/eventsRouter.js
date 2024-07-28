@@ -17,6 +17,12 @@ eventRouter
     verifyCreator,
     EventsController.httpGetEvents
   )
+  .get(
+    "/events/:eventId",
+    authenticateUser,
+    verifyUser,
+    EventsController.httpGetEvent
+  )
   .get("/", authenticateUser, verifyUser, EventsController.httpGetAllEvents)
   .patch(
     "/:eventId",

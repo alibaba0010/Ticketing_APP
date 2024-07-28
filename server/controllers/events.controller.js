@@ -41,6 +41,13 @@ class EventsController {
     });
   }
 
+  // GET A SPECIFIC EVENT
+  static async httpGetEvent(request, response) {
+    const { eventId } = request.params;
+    const event = await Event.findById(eventId);
+    if (!event) throw new NotFoundError("Event not found");
+    return response.status(StatusCodes.OK).json(event);
+  }
   static async httpGetEvents(request, response) {
     const { userId } = request.user;
     const events = await Event.find({ userId });
@@ -92,7 +99,7 @@ class EventsController {
     });
 
     await event.save();
-    await sendEmail(userName, email, name, date);
+    // await sendEmail(userName, email, name, date);
     response
       .status(StatusCodes.OK)
       .json({ message: "Ticket booked successfully" });
