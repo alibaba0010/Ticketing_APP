@@ -7,9 +7,8 @@ Comprehensive custom Error Handling
 
 User Authentication
 User Functionsality
-i User signup and login
-ii Greator signup and login
- iv, v, vi, vii, viii, ix, x
+User signup and login
+Greator signup and login
 Events & Tickets
 ```
 
@@ -34,14 +33,21 @@ Events & Tickets
 ```
 /events/event Create a new event by a creator
 /events/events Get all events created by a creator only
+/events/events/:eventId Get a specific event by a user
 /events Get all events created
 /events/:eventId/tickets Book an event ticket created by a creator except the creator
 ```
 
 ## Screenshots
 
+### Error Handling testing
+
 ![](../screenshots/postman_testing.png)
+
+### Postman create user
+
 ![](../screenshots/create_user.png)
+
 ![](../screenshots/show_current_user.png)
 ![](../screenshots/create_new_event.png)
 ![](../screenshots/only_creator_events.png)
